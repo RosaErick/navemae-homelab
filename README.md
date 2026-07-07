@@ -54,18 +54,7 @@ system/sysctl.d/99-zram.conf    # swappiness ajustado para zram
 system/docker/daemon.json       # rotação de logs do Docker
 ```
 
-## Otimizações aplicadas (hardware modesto: 4 GB RAM + HD 5400 rpm)
 
-- **zram** (zstd, 50% da RAM) como swap principal; swapfile em disco só como
-  fallback de prioridade baixa — `vm.swappiness=100`, `vm.page-cluster=0`
-- **QuickSync (QSV)** no Jellyfin usando a iGPU Intel HD 5500 (`renderD129`) em vez
-  da AMD; decode por HW só de H.264/VC-1/MPEG-2 (limites do Broadwell — sem
-  HEVC/VP9 10-bit); Trickplay com keyframe-only + aceleração de HW
-- **Limites de memória reais** em todos os containers (ver `deploy.resources.limits`
-  nos compose) — nenhum app consegue derrubar o servidor sozinho
-- **Rotação de logs** do Docker (10 MB × 3 por container)
-- **`noatime`** na raiz ext4 — menos escritas no HD
-- Ollama desativado e Chromium parado por padrão; LXD removido
 
 ## Como reproduzir
 
@@ -81,9 +70,3 @@ system/docker/daemon.json       # rotação de logs do Docker
    `sudo systemctl daemon-reload && sudo systemctl enable --now smbd ollama`.
 5. Tailscale e rclone exigem autenticação própria (`tailscale up`, `rclone config`).
 
-## O que ficou de fora (de propósito)
-
-- Configs de Wi-Fi (netplan/NetworkManager) — contêm SSID e senha
-- `rclone.conf` — contém tokens de nuvem
-- Chaves SSH, estado do Tailscale e quaisquer bancos/estado dos apps
-- Dados de mídia e arquivos pessoais
