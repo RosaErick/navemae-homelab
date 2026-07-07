@@ -4,13 +4,6 @@ Configurações do meu servidor caseiro (`navemaehomelab`) — um notebook antig
 [CasaOS](https://casaos.zimaspace.com/) sobre Ubuntu Server, com stack de mídia,
 DNS local e ferramentas de acesso remoto.
 
-Este repo serve como **backup versionado** das configs e como **referência** para
-quem quiser montar um setup parecido (ou para eu recriar tudo em outra máquina).
-
-> ⚠️ Nenhum dado sensível está aqui: senhas, tokens, chaves de API, configs de
-> Wi-Fi e o `rclone.conf` foram excluídos ou substituídos por placeholders
-> (ex.: `WEBPASSWORD: changeme` no Pi-hole).
-
 ## Hardware
 
 | Item | Spec |
