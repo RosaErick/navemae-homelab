@@ -27,7 +27,7 @@ DNS local e ferramentas de acesso remoto.
 
 | App | Imagem | Porta | Função |
 |---|---|---|---|
-| Jellyfin | `linuxserver/jellyfin:10.10.3` | 8097 | Servidor de mídia |
+| Jellyfin | `linuxserver/jellyfin:10.11.11` | 8097 | Servidor de mídia |
 | Radarr | `linuxserver/radarr:5.17.2` | 7878 | Gerência de filmes |
 | Sonarr | `linuxserver/sonarr:4.0.2` | 8989 | Gerência de séries |
 | Bazarr | `linuxserver/bazarr:1.5.1` | 6767 | Legendas |
