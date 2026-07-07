@@ -20,7 +20,7 @@ DNS local e ferramentas de acesso remoto.
 - **Docker 26.0** + docker compose plugin
 - **Tailscale** — acesso remoto via VPN mesh
 - **Samba** — compartilhamento de arquivos na rede local (`/media/arquivos`)
-- **Ollama** — servidor de LLMs local (systemd service)
+- **Ollama** — servidor de LLMs local (instalado, mas **desativado** — 4 GB de RAM não rodam modelo útil)
 - **rclone** — daemon rcd para sync com nuvem (config com credenciais fora do repo)
 
 ## Serviços (apps Docker via CasaOS)
@@ -37,7 +37,7 @@ DNS local e ferramentas de acesso remoto.
 | FlareSolverr | `flaresolverr/flaresolverr:v3.3.16` | 8191 | Proxy anti-Cloudflare p/ indexadores |
 | Pi-hole | `pihole/pihole:2024.02.2` | 8800 / 53 | DNS + bloqueio de anúncios |
 | Portainer | `portainer/portainer-ce:2.20.0-alpine` | 9443 | Gerência de containers |
-| Chromium | `linuxserver/chromium` | 4000 | Navegador remoto (web) |
+| Chromium | `linuxserver/chromium` | 4000 | Navegador remoto (web) — mantido **parado** p/ economizar RAM |
 
 Os dados dos apps ficam em `/DATA/AppData/<app>` e a mídia em `/DATA/Media`
 (padrão do CasaOS).
@@ -49,7 +49,23 @@ apps/<app>/docker-compose.yml   # compose de cada app (sanitizado)
 system/samba/smb.conf           # compartilhamento de rede
 system/systemd/*.service        # units do Ollama e rclone
 system/packages/apt-manual.txt  # pacotes apt instalados manualmente
+system/zram/zramswap            # /etc/default/zramswap (swap comprimido)
+system/sysctl.d/99-zram.conf    # swappiness ajustado para zram
+system/docker/daemon.json       # rotação de logs do Docker
 ```
+
+## Otimizações aplicadas (hardware modesto: 4 GB RAM + HD 5400 rpm)
+
+- **zram** (zstd, 50% da RAM) como swap principal; swapfile em disco só como
+  fallback de prioridade baixa — `vm.swappiness=100`, `vm.page-cluster=0`
+- **QuickSync (QSV)** no Jellyfin usando a iGPU Intel HD 5500 (`renderD129`) em vez
+  da AMD; decode por HW só de H.264/VC-1/MPEG-2 (limites do Broadwell — sem
+  HEVC/VP9 10-bit); Trickplay com keyframe-only + aceleração de HW
+- **Limites de memória reais** em todos os containers (ver `deploy.resources.limits`
+  nos compose) — nenhum app consegue derrubar o servidor sozinho
+- **Rotação de logs** do Docker (10 MB × 3 por container)
+- **`noatime`** na raiz ext4 — menos escritas no HD
+- Ollama desativado e Chromium parado por padrão; LXD removido
 
 ## Como reproduzir
 

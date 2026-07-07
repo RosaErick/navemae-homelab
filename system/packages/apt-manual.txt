@@ -33,3 +33,4 @@ udevil
 unzip
 wireguard-tools
 xorg
+zram-tools

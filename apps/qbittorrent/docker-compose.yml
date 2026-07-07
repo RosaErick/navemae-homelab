@@ -19,7 +19,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: '4010803200'
+          memory: '805306368'
         reservations:
           memory: '268435456'
     cpu_shares: 90

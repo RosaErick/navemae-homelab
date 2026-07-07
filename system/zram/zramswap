@@ -1,0 +1,5 @@
+# /etc/default/zramswap (pacote zram-tools)
+# Swap comprimido em RAM — ~1,9 GB com zstd em uma maquina de 4 GB.
+# O swapfile em disco (/swap.img) fica como fallback de prioridade baixa.
+ALGO=zstd
+PERCENT=50

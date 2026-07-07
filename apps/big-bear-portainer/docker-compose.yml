@@ -17,7 +17,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: '4010803200'
+          memory: '268435456'
     cpu_shares: 90
     labels:
       icon: https://github.com/walkxcode/dashboard-icons/blob/main/png/portainer-alt.png?raw=true

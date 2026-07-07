@@ -17,6 +17,8 @@ services:
     restart: unless-stopped
     deploy:
       resources:
+        limits:
+          memory: '536870912'
         reservations:
           memory: '268435456'
     labels:

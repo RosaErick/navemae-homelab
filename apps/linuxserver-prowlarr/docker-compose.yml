@@ -11,6 +11,10 @@ services:
     volumes:
     - /DATA/AppData/prowlarr/config:/config
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: '536870912'
     labels:
       icon: https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/prowlarr-logo.png
 networks:
