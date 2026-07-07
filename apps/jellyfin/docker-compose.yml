@@ -1,0 +1,37 @@
+name: jellyfin
+services:
+  jellyfin:
+    image: linuxserver/jellyfin:10.10.3
+    container_name: jellyfin
+    hostname: jellyfin
+    network_mode: bridge
+    devices:
+    - /dev/dri:/dev/dri
+    - /dev/vcsm:/dev/vcsm
+    - /dev/vchiq:/dev/vchiq
+    - /dev/video10:/dev/video10
+    - /dev/video11:/dev/video11
+    - /dev/video12:/dev/video12
+    environment:
+      PGID: '1000'
+      PUID: '1000'
+      TZ: Etc/UTC
+    ports:
+    - 8097:8096
+    - 8921:8920
+    - 7359:7359
+    - 1901:1900
+    volumes:
+    - /DATA/AppData/jellyfin/config:/config
+    - /DATA/Media:/Media
+    - /opt/vc/lib:/opt/vc/lib
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: '4010803200'
+        reservations:
+          memory: '268435456'
+    cpu_shares: 90
+    labels:
+      icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Jellyfin/icon.png

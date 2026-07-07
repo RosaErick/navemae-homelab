@@ -1,0 +1,19 @@
+name: linuxserver-prowlarr
+services:
+  app:
+    image: linuxserver/prowlarr:1.14.3
+    environment:
+      PGID: '1000'
+      PUID: '1000'
+      TZ: Etc/UTC
+    ports:
+    - 9696:9696
+    volumes:
+    - /DATA/AppData/prowlarr/config:/config
+    restart: unless-stopped
+    labels:
+      icon: https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/prowlarr-logo.png
+networks:
+  default:
+    name: linuxserver-prowlarr_default
+    external: false

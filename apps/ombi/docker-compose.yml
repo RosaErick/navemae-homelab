@@ -1,0 +1,22 @@
+name: ombi
+services:
+  ombi:
+    image: linuxserver/ombi:4.43.5
+    container_name: ombi
+    network_mode: bridge
+    environment:
+      BASE_URL: /ombi
+      PGID: '1000'
+      PUID: '1000'
+      TZ: Europe/London
+    ports:
+    - 3579:3579
+    volumes:
+    - /DATA/AppData/ombi/config:/config
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          memory: '67108864'
+    labels:
+      icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Ombi/icon.png

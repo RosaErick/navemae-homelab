@@ -1,0 +1,23 @@
+name: sonarr
+services:
+  sonarr:
+    image: linuxserver/sonarr:4.0.2
+    container_name: sonarr
+    network_mode: bridge
+    environment:
+      PGID: '1000'
+      PUID: '1000'
+      TZ: Etc/UTC
+    ports:
+    - 8989:8989
+    volumes:
+    - /DATA/AppData/sonarr/config:/config
+    - /DATA/Media/TV Shows:/tv
+    - /DATA/Downloads:/downloads
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          memory: '268435456'
+    labels:
+      icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Sonarr/icon.png

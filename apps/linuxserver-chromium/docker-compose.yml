@@ -1,0 +1,26 @@
+name: linuxserver-chromium
+services:
+  app:
+    image: linuxserver/chromium:version-b99a4166
+    environment:
+      CHROME_CLI: ''
+      PGID: '1000'
+      PUID: '1000'
+      TZ: Etc/UTC
+    ports:
+    - 4000:4000
+    - 3003:3003
+    volumes:
+    - /DATA/AppData/chromium/config:/config
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: '4010803200'
+    cpu_shares: 90
+    labels:
+      icon: https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/chromium-logo.png
+networks:
+  default:
+    name: linuxserver-chromium_default
+    external: false

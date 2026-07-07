@@ -1,0 +1,23 @@
+name: radarr
+services:
+  radarr:
+    image: linuxserver/radarr:5.17.2
+    container_name: radarr
+    network_mode: bridge
+    environment:
+      PGID: '1000'
+      PUID: '1000'
+      TZ: Etc/UTC
+    ports:
+    - 7878:7878
+    volumes:
+    - /DATA/AppData/radarr/config:/config
+    - /DATA/Media/Movies:/movies
+    - /DATA/Downloads:/downloads
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          memory: '268435456'
+    labels:
+      icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Radarr/icon.png

@@ -1,0 +1,27 @@
+name: qbittorrent
+services:
+  qbittorrent:
+    image: hotio/qbittorrent:release-4.6.2
+    container_name: qbittorrent
+    hostname: qbittorrent
+    network_mode: bridge
+    environment:
+      PGID: '1000'
+      PUID: '1000'
+      TZ: Etc/UTC
+      UMASK: '002'
+    ports:
+    - 8181:8080
+    volumes:
+    - /DATA/AppData/qbittorrent/config:/config
+    - /DATA:/DATA
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: '4010803200'
+        reservations:
+          memory: '268435456'
+    cpu_shares: 90
+    labels:
+      icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/qBittorrent/icon.png

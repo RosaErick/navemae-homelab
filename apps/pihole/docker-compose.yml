@@ -1,0 +1,31 @@
+name: pihole
+services:
+  pihole:
+    image: pihole/pihole:2024.02.2
+    container_name: pihole
+    hostname: pihole
+    network_mode: bridge
+    environment:
+      PROXY_LOCATION: pi.hole
+      TZ: Etc/UTC
+      VIRTUAL_HOST: pi.hole
+      WEBPASSWORD: changeme
+    ports:
+    - 8800:80
+    - '53:53'
+    - 53:53/udp
+    - 67:67/udp
+    - 547:547/udp
+    volumes:
+    - /DATA/AppData/pihole/etc/pihole/:/etc/pihole
+    - /DATA/AppData/pihole/etc/dnsmasq.d/:/etc/dnsmasq.d
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: '4010803200'
+        reservations:
+          memory: '67108864'
+    cpu_shares: 90
+    labels:
+      icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Pihole/icon.png
